@@ -44,3 +44,17 @@ function displayForecast(data) {
         forecastDiv.appendChild(weatherItem);
     });
 }
+function displayForecast(data) {
+    const forecastDiv = document.getElementById('forecast');
+    forecastDiv.innerHTML = '';
+    data.list.filter((forecast, index) => index % 8 === 0).forEach((forecast, index) => {
+        const weatherItem = document.createElement('div');
+        weatherItem.classList.add('weather-item');
+        weatherItem.innerHTML = `
+            <h3>Day ${index + 1}</h3>
+            <p class="temp">${forecast.main.temp}°C</p>
+            <p>${forecast.weather[0].main}</p>
+        `;
+        forecastDiv.appendChild(weatherItem);
+    });
+}
