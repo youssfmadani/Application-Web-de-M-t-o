@@ -16,6 +16,9 @@ const additionalInfo = document.getElementById("additional-info");
 
 const DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
+// Regex for validating city input (only letters, spaces, and basic punctuation)
+const cityRegex = /^[a-zA-Z\s,.'-]+$/;
+
 function updateTimeAndDate() {
     const now = new Date();
     const hours = now.getHours();
@@ -28,13 +31,33 @@ function updateTimeAndDate() {
 async function fetchWeatherByCoords(lat, lon) {
     const response = await fetch(`${weatherUrl}lat=${lat}&lon=${lon}&appid=${apiKey}`);
     const data = await response.json();
+    if (data.cod !== 200) {
+        alert("City not found.");
+        return;
+    }
     displayWeather(data);
     fetchForecastByCoords(lat, lon);
 }
 
 async function fetchWeatherByCity(city) {
+    // Validate city using regex
+    if (!cityRegex.test(city)) {
+        alert("Please enter a valid city name.");
+        return;
+    }
+
+    // Check if city input is empty
+    if (!city) {
+        alert("Please enter a city name.");
+        return;
+    }
+
     const response = await fetch(`${weatherUrl}q=${city}&appid=${apiKey}`);
     const data = await response.json();
+    if (data.cod === "404") {
+        alert("City not found.");
+        return;
+    }
     displayWeather(data);
     fetchForecastByCity(city);
 }
@@ -139,6 +162,7 @@ function getUserLocation() {
 searchBtn.addEventListener("click", () => {
     const city = cityInput.value.trim();
     if (city) fetchWeatherByCity(city);
+    else alert("Please enter a city name.");
 });
 
 // Automatically fetch weather for user's location on page load
