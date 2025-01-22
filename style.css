@@ -1,0 +1,70 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background: url('https://images.unsplash.com/photo-1621274403997-37aace184f49?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1') no-repeat center center fixed;
+    background-size: cover;
+    color: white;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+}
+
+.container {
+    padding: 20px;
+    text-align: center;
+}
+
+.current-info {
+    margin-top: 20px;
+}
+
+#city-input {
+    padding: 10px;
+    width: 60%;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+#search-btn {
+    padding: 10px 20px;
+    background-color: #444;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+#forecast {
+    margin-top: 20px;
+}
+
+.weather-forecast {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.weather-item {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+    width: 150px;
+    text-align: center;
+}
+
+.weather-item h3 {
+    margin: 0;
+}
+
+.weather-item .temp {
+    font-size: 1.5rem;
+    margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+    #city-input {
+        width: 80%;
+    }
+    .weather-item {
+        width: 120px;
+    }
+}
