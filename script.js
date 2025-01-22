@@ -58,3 +58,22 @@ function displayForecast(data) {
         forecastDiv.appendChild(weatherItem);
     });
 }
+function fetchWeather(city) {
+    if (!city) {
+        alert("Please enter a city name!");
+        return;
+    }
+
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.cod === "404") {
+                alert("City not found. Please try again.");
+            } else {
+                displayWeather(data);
+                fetchForecast(city);
+            }
+        })
+        .catch(error => alert("Error fetching weather data"));
+}
+
